@@ -5,8 +5,8 @@ public class list {
 
 	public list() {
 		size = 0;
-		node head = null;
-		node tail = null;
+		head = new node(-1,null,null);
+		tail = new node(-2,null,null);
 	}
 
 	public int size() {
@@ -15,12 +15,12 @@ public class list {
 
 	public boolean isFirst(node tempNode) {
 		if (size == 0) return false;
-		return (tempNode == head);
+		return (tempNode.get_value() == head.get_value());
 	}
 
 	public boolean isLast(node tempNode) {
 		if (size == 0) return false;
-		return (tempNode == tail);
+		return (tempNode.get_value() == tail.get_value());
 	}
 
 	public void insert(int value) {
@@ -42,37 +42,31 @@ public class list {
 
 	public void insertFirst(int x) {
 		if (size == 0) {
-			node newNode = new node(x,null,null);
+			node newNode = new node(x,head,tail);
 			newNode.set_rank(1);
-			head = newNode;
-			tail = newNode;
+			head.set_next(newNode);
+			tail.set_prev(newNode);
 			size++;
 		}
 		else {
-			node tempNode = head;
-			node newNode = new node(x,null,tempNode);
-			newNode.set_rank(1);
-			head = newNode;
+			node tempNode = head.get_next();
+			node newNode = new node(x,head,tempNode);
 			tempNode.set_prev(newNode);
+			head.set_next(newNode);
 			size++;
 		}
 	}
 
 	public void insertLast(int x) {
 		if (size == 0) {
-			node newNode = new node(x,null,null);
-			newNode.set_rank(1);
-			head = newNode;
-			tail = newNode;
+			node newNode = new node(x,head,tail);
 			size++;
 		}
 		else {
-			node tempNode = tail;
-			node newNode = new node(x,tempNode,null);
+			node tempNode = tail.get_prev();
+			node newNode = new node(x,tempNode,tail);
 			tempNode.set_next(newNode);
-			tail = newNode;
 			size++;
-			newNode.set_rank(size);
 		}
 	}
 
@@ -87,8 +81,7 @@ public class list {
 	}
 
 	public void insertBefore(node currNode,int value) {
-		if (size == 0) insertFirst(value);
-		if(currNode == head) insertFirst(value);
+		if(currNode == head.get_next()) {insertFirst(value); return;}
 		node newNode = new node(value,currNode.get_prev(),currNode);
 		if (currNode.get_prev() != null) currNode.get_prev().set_next(newNode);
 		currNode.set_prev(newNode);
@@ -171,7 +164,7 @@ public class list {
 
 	public String display() { // blah
 		String display = "[";
-		node displayNode = head;
+		node displayNode = head.get_next();
 		if (size == 0) return "[]";
 		for (int i = 0; i < size; i++) {
 			display += " " + displayNode.get_value() + " ";
