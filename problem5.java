@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class problem5 { //Commented by dmk
+public class problem5 {
 	public static void main (String args[ ]) throws IOException {
 		BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
 		String command;
