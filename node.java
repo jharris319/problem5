@@ -3,6 +3,8 @@ public class node {
 	private int rank;
 	private node prev;
 	private node next;
+	private node prevCol;
+	private node nextCol;
 
 	public node (int Value, node Prev, node Next) {
 		value = Value;
