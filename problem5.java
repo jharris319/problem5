@@ -9,10 +9,13 @@ public class problem5 {
 
 		menu();
 		while(true) {
-			System.out.print("At your command:");
+			System.out.print("At your command: ");
 			command = consoleReader.readLine();
-			if(command.charAt(0) == 'i') flag = Integer.parseInt(command.replaceAll("\\D+",""));
+			if(command.charAt(0) == 'f' || command.charAt(0) == 'i') flag = Integer.parseInt(command.replaceAll("\\D+",""));
 			switch(command.charAt(0)) {
+				case 'f':
+					L.find(flag);
+					break;
 				case 'i':
 					L.insert(flag);
 					break;
