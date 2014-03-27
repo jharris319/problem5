@@ -1,3 +1,8 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class list {
 	private node head;
 	private node tail;
@@ -33,7 +38,7 @@ public class list {
 	public void insertFirst(int x) {
 		if (size == 0) {
 			node newNode = new node(x,head,tail);
-			newNode.set_rank(1);
+			//newNode.set_rank(1);
 			head.set_next(newNode);
 			tail.set_prev(newNode);
 			size++;
@@ -76,4 +81,10 @@ public class list {
 		display += "] Size: " + size;
 		return display;
 	}
+
+	public node get_start() {
+		node start = head.get_next();
+		return start;
+	}
+
 }

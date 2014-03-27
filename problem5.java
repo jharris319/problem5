@@ -6,6 +6,7 @@ public class problem5 {
 		String command;
 		int flag = 0;
 		list L = new list();
+		graphGen G = new graphGen();
 
 		menu();
 		while(true) {
@@ -25,6 +26,10 @@ public class problem5 {
 				case 's':
 					System.out.println(L.size());
 					break;
+				case 'v':
+					G.genList(L);
+					G.makeDot(L.get_start());
+					break;
 				case 'q':
 					System.exit(0);
 					break;
@@ -41,6 +46,7 @@ public class problem5 {
 	    //System.out.print("    d XXX - Delete value XXX from the data structure\n");
 	    System.out.print("    f XXX - Find value XXX in the data structure\n");
 	    System.out.print("    d     - Display the data structure\n");
+	    System.out.print("    v     - Visualize the data structure with graphviz\n");
 	    System.out.print("    q     - Quit Problem2\n");
 	}
 }
