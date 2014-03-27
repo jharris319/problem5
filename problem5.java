@@ -15,7 +15,10 @@ public class problem5 {
 			if(command.charAt(0) == 'f' || command.charAt(0) == 'i') flag = Integer.parseInt(command.replaceAll("\\D+",""));
 			switch(command.charAt(0)) {
 				case 'f':
-					L.find(flag);
+					//TODO -- also print next/prev/col here
+					node findNode = L.find(flag);
+					if(findNode == null) System.out.println("[Value not found]");
+					else System.out.println("[Found: " + findNode.get_value() + "]");
 					break;
 				case 'i':
 					L.insert(flag);

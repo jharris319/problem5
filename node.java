@@ -1,6 +1,5 @@
 public class node {
 	private int value;
-	//private int rank;
 	private node prev;
 	private node next;
 	private node prevCol;
@@ -32,10 +31,6 @@ public class node {
 		nextCol = NextCol;
 	}
 
-	// public void set_rank(int Rank) {
-	// 	rank = Rank;
-	// }
-
 	public int get_value() {
 		return value;
 	}
@@ -55,8 +50,4 @@ public class node {
 	public node get_nextCol() {
 		return nextCol;
 	}
-
-	// public int get_rank() {
-	// 	return rank;
-	// }
 }
