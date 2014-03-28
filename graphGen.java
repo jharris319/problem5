@@ -18,7 +18,11 @@ class graphGen {
 		return;
 	}
 
-	public static void makeDot(node currNode){
+	public static void makeDot(list L){
+		if (L.size() == 0){
+			System.out.println("Nothing to visualize");
+			return;
+		}
 		try {
 			File file = new File("./sqrt.dot");
 			// if file doesnt exists, then create it
@@ -27,11 +31,11 @@ class graphGen {
 			}
 			// Writes header for dot file
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			String dotHead = "digraph G {\n\trankdir = LR\n\tnode[shape = circle , height = .6, fixedsize = true];\n\n\t";
+			String dotHead = "digraph G {\n\trankdir = LR\n\tnode[shape = circle , height = .6, fixedsize = true];\n\tedge[dir=both];\n\n\t";
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(dotHead);
 			// Call to fill dot file with pointers
-			fillDot(currNode,bw);
+			fillDot(L,bw);
 			// Writes footer for dot file to close file
 			String dotFoot = "\n}";
 			bw.write(dotFoot);
@@ -41,22 +45,29 @@ class graphGen {
 		}
 	}
 
-	public static void fillDot(node currNode, BufferedWriter bw){
-		while (currNode.get_next() != null && currNode.get_next().get_nextRow() == null){
-			String fill = "";
-			int rowEnd = 3;
-			if (currNode.get_next().get_value() != rowEnd){fill = Integer.toString(currNode.get_value()) + " -> ";}
-			else fill = Integer.toString(currNode.get_value()) + ";\n\t" + currNode.get_value() + " -> " + currNode.get_next().get_value() +" [constraint=false];\n";
-			if (currNode.get_next() != null) currNode = currNode.get_next();
-			
-			try {
-			// String content = "\tThis is the content to write into file\n";
+	public static void fillDot(list L, BufferedWriter bw){
+		String fill = "";
+		if (L.size() == 1) fill += L.get_start().get_value() + ";\n";
+		node currNode = L.get_start();
+		while (currNode != L.get_end()){
+			fill += currNode.get_value();
+			if (currNode.get_next() == L.get_end()) {
+				fill += ";\n";
+				break;
+			}
+			if (currNode.get_next().get_prevRow() != null){
+				fill += ";\n\t";
+				fill += currNode.get_value() + " -> " + currNode.get_next().get_value() +" [constraint=false];\n\t";
+				fill += currNode.get_next().get_prevRow().get_value() + " -> " + currNode.get_next().get_value() +" [constraint=false];\n\t";
+			} else fill += " -> ";
+			currNode = currNode.get_next();
+		}
+		try {
 			bw.write(fill);
 			System.out.println("Done");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
 	}
+
 }
