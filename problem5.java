@@ -36,7 +36,7 @@ public class problem5 {
 					L.stats();
 					break;
 				case 'v':
-					G.genList(L);
+					//G.genList(L);
 					G.makeDot(L);
 					if (System.getProperty("os.name").startsWith("Linux")){
 						Runtime.getRuntime().exec("./qgraph-nix.sh sqrt");
