@@ -64,7 +64,6 @@ class graphGen {
 		}
 		try {
 			bw.write(fill);
-			System.out.println("Done");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
