@@ -24,6 +24,7 @@ public class list {
 	public node get_end() {return tail;}
 
 	public void insert(int value) {
+		//TODO -- Check skip pointers
 		int currentRow = 0;
 		if (size == maxAllocation) resize(); //increment maxRowSize and maxAllocation = square rowSize
 		node currNode = get_start();
@@ -64,23 +65,44 @@ public class list {
 	}
 
 	public void resize() {
-
+		int currentRow = 0;
 		node currNode = get_start();
+		node newBaseNode;
 		for(int i = 0; i < maxRowSize; i++) {
 			//first bit
-			if (size > 2) {
-				if (currNode.get_prevRow() == null) currNode.set_nextRow(currNode.get_nextRow().get_next());
-
-				else {
-					//second part
-					currNode.get_nextRow().set_prevRow(currNode.get_nextRow().get_prev().get_prevRow());
-					currNode.get_nextRow().get_prev().set_prevRow(null);
+			if (size > 2) { //TODO -- check this?
+				if (currNode.get_nextRow() == null) break;
+				if (currNode.get_prevRow() == null) {
+					currNode.get_nextRow().set_prevRow(null);
+					currNode.set_nextRow(currNode.get_nextRow().get_next());
+					currNode.get_nextRow().set_prevRow(currNode);
 					currNode.get_nextRow().set_nextRow(currNode.get_nextRow().get_prev().get_nextRow());
 					currNode.get_nextRow().get_prev().set_nextRow(null);
+					rowSize[currentRow]++;
+					rowSize[currentRow + 1]--;
+				}
+				else {
+					//second part
+//					currNode.get_nextRow().set_prevRow(currNode.get_nextRow().get_prev().get_prevRow());
+//					currNode.get_nextRow().get_prev().set_prevRow(null);
+//					currNode.get_nextRow().set_nextRow(currNode.get_nextRow().get_prev().get_nextRow());
+//					currNode.get_nextRow().get_prev().set_nextRow(null);
+					newBaseNode = currNode.get_nextRow();
+					for (int j = 0; j <= currentRow; j++) {
+						newBaseNode = newBaseNode.get_next();
+					}
+					newBaseNode.set_nextRow(currNode.get_nextRow().get_nextRow());
+					currNode.get_nextRow().set_prevRow(null);
+					currNode.set_nextRow(newBaseNode);
+					newBaseNode.set_prevRow(currNode);
+					rowSize[currentRow] += currentRow + 1;
+					rowSize[currentRow + 1] -= currentRow + 1;
 				}
 				//move down
-				if (currNode.get_nextRow() != null) currNode = currNode.get_nextRow();
-				else return;
+				if (currNode.get_nextRow() != null) {
+					currNode = currNode.get_nextRow();
+					currentRow++;
+				}
 			}
 		}
 		maxRowSize++;

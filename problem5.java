@@ -15,7 +15,6 @@ public class problem5 {
 			if(command.charAt(0) == 'f' || command.charAt(0) == 'i') flag = Integer.parseInt(command.replaceAll("\\D+",""));
 			switch(command.charAt(0)) {
 				case 'f':
-					//TODO -- also print next/prev/col here
 					node findNode = L.find(flag);
 					if(findNode == null) System.out.println("[Value not found]");
 					else {
@@ -37,7 +36,7 @@ public class problem5 {
 					L.stats();
 					break;
 				case 'v':
-					//G.genList(L);
+					G.genList(L);
 					G.makeDot(L);
 					if (System.getProperty("os.name").startsWith("Linux")){
 						Runtime.getRuntime().exec("./qgraph-nix.sh sqrt");
