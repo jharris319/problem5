@@ -42,10 +42,11 @@ class graphGen {
 	}
 
 	public static void fillDot(node currNode, BufferedWriter bw){
-		while (currNode.get_next() != null && currNode.get_next().get_nextCol() == null){
+		while (currNode.get_next() != null && currNode.get_next().get_nextRow() == null){
 			String fill = "";
-			if (currNode.get_next().get_value() != -2){fill = Integer.toString(currNode.get_value()) + " -> ";}
-			else fill = Integer.toString(currNode.get_value()) + ";";
+			int rowEnd = 3;
+			if (currNode.get_next().get_value() != rowEnd){fill = Integer.toString(currNode.get_value()) + " -> ";}
+			else fill = Integer.toString(currNode.get_value()) + ";\n\t" + currNode.get_value() + " -> " + currNode.get_next().get_value() +" [constraint=false];\n";
 			if (currNode.get_next() != null) currNode = currNode.get_next();
 			
 			try {

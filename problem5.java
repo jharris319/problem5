@@ -18,7 +18,14 @@ public class problem5 {
 					//TODO -- also print next/prev/col here
 					node findNode = L.find(flag);
 					if(findNode == null) System.out.println("[Value not found]");
-					else System.out.println("[Found: " + findNode.get_value() + "]");
+					else {
+						System.out.print("[Found " + findNode.get_value());
+						if(findNode.get_prev() != null) System.out.print(" / Prev " + findNode.get_prev().get_value());
+						if(findNode.get_next() != null) System.out.print(" / Next " + findNode.get_next().get_value());
+						if(findNode.get_prevRow() != null) System.out.print(" / PrevCol " + findNode.get_prevRow().get_value());
+						if(findNode.get_nextRow() != null) System.out.print(" / NextCol " + findNode.get_nextRow().get_value());
+						System.out.println("]");
+					}
 					break;
 				case 'i':
 					L.insert(flag);
@@ -27,10 +34,10 @@ public class problem5 {
 					System.out.println(L.display());
 					break;
 				case 's':
-					System.out.println(L.size());
+					L.stats();
 					break;
 				case 'v':
-					G.genList(L);
+					//G.genList(L);
 					G.makeDot(L.get_start());
 					break;
 				case 'q':
@@ -45,11 +52,11 @@ public class problem5 {
 		//TODO -- Put clear screen here!
 	    System.out.print("Available Commands:\n");
 	    System.out.print("    i XXX - Insert value XXX into the data structure\n");
-	    System.out.print("    s     - Print size of data structure\n");
+	    System.out.print("    s     - Print statistics of data structure\n");
 	    //System.out.print("    d XXX - Delete value XXX from the data structure\n");
 	    System.out.print("    f XXX - Find value XXX in the data structure\n");
 	    System.out.print("    d     - Display the data structure\n");
 	    System.out.print("    v     - Visualize the data structure with graphviz\n");
-	    System.out.print("    q     - Quit Problem2\n");
+	    System.out.print("    q     - Quit Problem 5\n");
 	}
 }
