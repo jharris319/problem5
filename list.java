@@ -21,10 +21,21 @@ public class list {
 
 	public node get_start() {return head.get_next();}
 
+	public node get_end() {return tail;}
+
 	public void insert(int value) {
 		int currentRow = 0;
 		if (size == maxAllocation) resize(); //increment maxRowSize and maxAllocation = square rowSize
-		node currNode = head;
+		node currNode = get_start();
+
+		while (currNode.get_nextRow() != null) {
+			if (currNode.get_nextRow().get_value() < value) {
+				currNode = currNode.get_nextRow();
+				currentRow++;
+			}
+			else break;
+		}
+
 		while (currNode.get_next() != null) {
 			if (currNode.get_value() == value) {
 				System.out.println("[Duplicates not allowed]");
@@ -48,7 +59,7 @@ public class list {
 				rowSize[currentRow + 1]++;
 				currentRow++;
 			}
-			else return;
+			else break;
 		}
 	}
 
@@ -82,6 +93,7 @@ public class list {
 			endElement = endElement.get_next();
 		}
 		baseElement.set_nextRow(endElement);
+		endElement.set_prevRow(baseElement);
 	}
 
 	public node find(int value) {
