@@ -38,7 +38,14 @@ public class problem5 {
 					break;
 				case 'v':
 					//G.genList(L);
-					G.makeDot(L.get_start());
+					G.makeDot(L);
+					if (System.getProperty("os.name").startsWith("Linux")){
+						Runtime.getRuntime().exec("./qgraph-nix.sh sqrt");
+					} else if (System.getProperty("os.name").startsWith("Mac")){
+						Runtime.getRuntime().exec("./qgraph-mac.sh sqrt");
+					} else {
+						System.out.println("OS not supported for automatic visualization");
+					}
 					break;
 				case 'q':
 					System.exit(0);
