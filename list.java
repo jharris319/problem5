@@ -24,11 +24,14 @@ public class list {
 	public node get_end() {return tail;}
 
 	public void insert(int value) {
-		//TODO -- Check skip pointers
+		// Start at [0,0]
 		int currentRow = 0;
-		if (size == maxAllocation) resize(); //increment maxRowSize and maxAllocation = square rowSize
 		node currNode = get_start();
 
+		// Resize when the data structure is a max capacity
+		if (size == maxAllocation) resize();
+
+		// Hop skip pointers until we are at the correct row
 		while (currNode.get_nextRow() != null) {
 			if (currNode.get_nextRow().get_value() < value) {
 				currNode = currNode.get_nextRow();
@@ -36,7 +39,7 @@ public class list {
 			}
 			else break;
 		}
-
+		// Search our currentRow for the insert location
 		while (currNode.get_next() != null) {
 			if (currNode.get_value() == value) {
 				System.out.println("[Duplicates not allowed]");
@@ -45,11 +48,15 @@ public class list {
 			if (currNode.get_value() > value) break;
 			else currNode = currNode.get_next();
 		}
+		// Create a new node set pointers
 		node newNode = new node(value, currNode.get_prev(), currNode);
 		currNode.get_prev().set_next(newNode);
 		currNode.set_prev(newNode);
 		size++;
 		rowSize[currentRow]++;
+		// Check if currentRow is now too large and correct if needed.
+		// This may cascade down rows, so we'll need to check each row
+		// until we no longer overflow.
 		while (true) {
 			if (rowSize[currentRow] > maxRowSize) {
 				node baseElement = newNode;
@@ -69,10 +76,11 @@ public class list {
 		node currNode = get_start();
 		node newBaseNode;
 		for(int i = 0; i < maxRowSize; i++) {
-			//first bit
 			if (size > 2) { //TODO -- check this?
+				// If we're at the bottom row, break out
 				if (currNode.get_nextRow() == null) break;
-				if (currNode.get_prevRow() == null) {
+				if (currNode.get_prevRow() == null) { // First row
+					// Adjust pointers
 					currNode.get_nextRow().set_prevRow(null);
 					currNode.set_nextRow(currNode.get_nextRow().get_next());
 					currNode.get_nextRow().set_prevRow(currNode);
@@ -81,16 +89,13 @@ public class list {
 					rowSize[currentRow]++;
 					rowSize[currentRow + 1]--;
 				}
-				else {
-					//second part
-//					currNode.get_nextRow().set_prevRow(currNode.get_nextRow().get_prev().get_prevRow());
-//					currNode.get_nextRow().get_prev().set_prevRow(null);
-//					currNode.get_nextRow().set_nextRow(currNode.get_nextRow().get_prev().get_nextRow());
-//					currNode.get_nextRow().get_prev().set_nextRow(null);
+				else { // All other rows
 					newBaseNode = currNode.get_nextRow();
+					// Find the new baseNode
 					for (int j = 0; j <= currentRow; j++) {
 						newBaseNode = newBaseNode.get_next();
 					}
+					// Now adjust pointers
 					newBaseNode.set_nextRow(currNode.get_nextRow().get_nextRow());
 					currNode.get_nextRow().set_prevRow(null);
 					currNode.set_nextRow(newBaseNode);
@@ -98,13 +103,14 @@ public class list {
 					rowSize[currentRow] += currentRow + 1;
 					rowSize[currentRow + 1] -= currentRow + 1;
 				}
-				//move down
+				// Move to the next row
 				if (currNode.get_nextRow() != null) {
 					currNode = currNode.get_nextRow();
 					currentRow++;
 				}
 			}
 		}
+		// Done restructuring, adjust size variables
 		maxRowSize++;
 		maxAllocation = maxRowSize * maxRowSize;
 	}
@@ -133,7 +139,7 @@ public class list {
 		System.out.println("Max Row Size: " + maxRowSize);
 		System.out.println("Max Allocation: " + maxAllocation);
 		System.out.print("[ ");
-		for (int i = 0; i <= maxRowSize; i++) {
+		for (int i = 0; i < maxRowSize; i++) {
 			System.out.print(rowSize[i] + " ");
 		}
 		System.out.println("]");
