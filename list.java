@@ -126,7 +126,7 @@ public class list {
 
 	public node find(int value) {
 		if(size == 0) return null;
-		node currNode = head;
+		node currNode = get_start();
 
 		// Hop skip pointers until we are at the correct row
 		while (currNode.get_nextRow() != null) {
