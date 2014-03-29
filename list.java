@@ -127,11 +127,25 @@ public class list {
 	public node find(int value) {
 		if(size == 0) return null;
 		node currNode = head;
-		while(currNode != null) {
-			if(currNode.get_value() == value) return currNode;
-			currNode = currNode.get_next();
+
+		// Hop skip pointers until we are at the correct row
+		while (currNode.get_nextRow() != null) {
+			if (currNode.get_nextRow().get_value() < value) {
+				currNode = currNode.get_nextRow();
+			}
+			else break;
 		}
-		return currNode;
+		// Search our currentRow for the desired value
+		while (currNode.get_next() != null) {
+			if (currNode.get_value() == value) {
+				return currNode;
+			}
+			else if (currNode.get_value() > value) {
+				return null;
+			}
+			else currNode = currNode.get_next();
+		}
+		return null;
 	}
 
 	public void stats() {
