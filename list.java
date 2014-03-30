@@ -23,6 +23,13 @@ public class list {
 
 	public node get_end() {return tail;}
 
+	public void genList(int flag){
+		for(int i = 1; i <= flag; i++){
+			insert(i);
+		}
+		return;
+	}
+
 	public void insert(int value) {
 		// Start at [0,0]
 		int currentRow = 0;

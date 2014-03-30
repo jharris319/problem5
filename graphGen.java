@@ -3,22 +3,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
-
 class graphGen {
-	// public static void main (String[] args){
-	// 	genList();
-	// 	makeDot();
-	// }
 
-	public static void genList(list L){
-		for(int i = 1; i < 10; i++){
-			L.insert(i);
-		}
-		return;
-	}
-
-	public static void makeDot(list L){
+	public void makeDot(list L){
 		if (L.size() == 0){
 			System.out.println("Nothing to visualize");
 			return;
@@ -40,12 +27,19 @@ class graphGen {
 			String dotFoot = "\n}";
 			bw.write(dotFoot);
 			bw.close();
+			if (System.getProperty("os.name").startsWith("Linux")){
+				Runtime.getRuntime().exec("./qgraph-nix.sh sqrt");
+			} else if (System.getProperty("os.name").startsWith("Mac")){
+				Runtime.getRuntime().exec("./qgraph-mac.sh sqrt");
+			} else {
+				System.out.println("OS not supported for automatic visualization");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void fillDot(list L, BufferedWriter bw){
+	public void fillDot(list L, BufferedWriter bw){
 		String fill = "";
 		if (L.size() == 1) fill += L.get_start().get_value() + ";\n";
 		node currNode = L.get_start();
