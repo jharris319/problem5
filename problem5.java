@@ -16,11 +16,14 @@ public class problem5 {
 			switch(command.charAt(0)) {
 
 				case 'i':
+					menu();
 					L.insert(flag);
 					break;
 				case 'd':
+					menu();
 					break;
 				case 'f':
+					menu();
 					node findNode = L.find(flag);
 					if(findNode == null) System.out.println("[Value not found]");
 					else {
@@ -33,27 +36,32 @@ public class problem5 {
 					}
 					break;
 				case 'g':
-					//TODO -- delete entire data structure before allowing generate
+					menu();
 					L = null;
 					System.gc();
 					L = new list();
 					L.genList(flag);
 					break;
 				case 's':
+					menu();
 					L.stats();
 					break;
 				case 'l':
+					menu();
 					System.out.println(L.display());
 					break;
 				case 'v':
+					menu();
 					G.makeDot(L);
 					break;
 				case 'D':
+					menu();
 					L = null;
 					System.gc();
 					L = new list();
 					break;
 				case 'q':
+					System.out.println("Thanks for flying 100P!");
 					System.exit(0);
 					break;
 			}
@@ -61,33 +69,8 @@ public class problem5 {
 		
 	}
 
-	public static void clear(){
-	//method 1
-		//System.out.print("\f"); might work for Linux
-	//method 2
-		// try {
-		// Runtime.getRuntime().exec("clear");
-		// } catch (IOException e) {
-		// 	e.printStackTrace();
-		// }
-	//method 3
-		// try {
-		// Runtime.getRuntime().exec("./clearScreen.sh");
-		// } catch (IOException e) {
-		// 	e.printStackTrace();
-		// }
-	//method 4 working
-		// final String ANSI_CLS = "\u001b[2J";
-		// final String ANSI_HOME = "\u001b[H";
-		// System.out.print(ANSI_CLS + ANSI_HOME);
-		// System.out.flush();
-	//method 5 working
-		System.out.print("\u001b[2J" + "\u001b[H");
-	}
-
 	public static void menu() {
-		//TODO -- Put clear screen here!
-		clear();
+		System.out.print("\u001b[2J" + "\u001b[H");
 	    System.out.print("Available Commands:\n");
 	    System.out.print("    i XXX - Insert value XXX into the data structure\n");
 	    System.out.print("    d XXX - Delete value XXX from the data structure\n");
