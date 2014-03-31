@@ -112,15 +112,8 @@ public class list {
 		if (baseNode.get_prevRow() != null || baseNode.get_nextRow() != null){
 			//delNode is the baseNode
 		} else {
-			// if statement here to fix case for 4 items
-			if (size == 4){
-				if (baseNode.get_prevRow() == null || baseNode.get_nextRow() == null) {
-					baseNode = baseNode.get_prev();
-				}
-			} else {
-				while (baseNode.get_prevRow() == null || baseNode.get_nextRow() == null) { // breaks for 4 items
-					baseNode = baseNode.get_prev();
-				}
+			while (baseNode.get_prevRow() == null && baseNode.get_nextRow() == null) { // breaks for 4 items
+				baseNode = baseNode.get_prev();
 			}
 			
 			//Found baseNode on row
