@@ -78,6 +78,38 @@ public class list {
 		}
 	}
 
+	public void delete(int value) {
+		// Start at [0,0]
+		int currentRow = 0;
+		node delNode = get_start();
+
+		// Resize when the data structure is a max capacity
+		// TODO -- if (size - 1 == a perfect square) restructure
+		// if (size == maxAllocation) resize();
+
+		// Hop skip pointers until we are at the correct row
+		while (delNode.get_nextRow() != null) {
+			if (delNode.get_nextRow().get_value() < value) {
+				delNode = delNode.get_nextRow();
+				currentRow++;
+			}
+			else break;
+		}
+		// Search our currentRow for the insert location
+		while (delNode.get_next() != null) {
+			if (delNode.get_value() == value) {
+				break;
+			}
+			if (delNode.get_value() > value) break;
+			else delNode = delNode.get_next();
+		}
+		if (delNode.get_value() != value) {
+			System.out.println("[Node not found]");
+			return;
+		}
+
+	}
+
 	public void resize() {
 		int currentRow = 0;
 		node currNode = get_start();
@@ -98,6 +130,7 @@ public class list {
 				}
 				else { // All other rows
 					newBaseNode = currNode.get_nextRow();
+					node originalBase = newBaseNode;
 					// Find the new baseNode
 					for (int j = 0; j <= currentRow; j++) {
 						newBaseNode = newBaseNode.get_next();
@@ -107,6 +140,8 @@ public class list {
 					currNode.get_nextRow().set_prevRow(null);
 					currNode.set_nextRow(newBaseNode);
 					newBaseNode.set_prevRow(currNode);
+					originalBase.set_prevRow(null);
+					originalBase.set_nextRow(null);
 					rowSize[currentRow] += currentRow + 1;
 					rowSize[currentRow + 1] -= currentRow + 1;
 				}
