@@ -108,6 +108,36 @@ public class list {
 			return;
 		}
 
+		node baseNode = delNode;
+		if (baseNode.get_prevRow() != null || baseNode.get_nextRow() != null){
+			//delNode is the baseNode
+		} else {
+			// if statement here to fix case for 4 items
+			if (size == 4){
+				if (baseNode.get_prevRow() == null || baseNode.get_nextRow() == null) {
+					baseNode = baseNode.get_prev();
+				}
+			} else {
+				while (baseNode.get_prevRow() == null || baseNode.get_nextRow() == null) { // breaks for 4 items
+					baseNode = baseNode.get_prev();
+				}
+			}
+			
+			//Found baseNode on row
+			if (baseNode.get_nextRow() != null){
+				if (baseNode.get_nextRow().get_next() != null){
+					node newBaseNode = baseNode.get_nextRow().get_next();
+				}
+			}
+			//just delete the node
+			delNode.get_prev().set_next(delNode.get_next());
+			if (delNode.get_next() != tail){
+				delNode.get_next().set_prev(delNode.get_prev());
+			}
+			delNode.set_prev(null);
+			delNode.set_next(null);
+			delNode = null;
+		}
 	}
 
 	public void resize() {

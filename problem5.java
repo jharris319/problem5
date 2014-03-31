@@ -21,6 +21,7 @@ public class problem5 {
 					break;
 				case 'd':
 					menu();
+					L.delete(flag);
 					break;
 				case 'f':
 					menu();
@@ -61,6 +62,7 @@ public class problem5 {
 					L = new list();
 					break;
 				case 'q':
+					System.out.print("\u001b[2J" + "\u001b[H");
 					System.out.println("Thanks for flying 100P!");
 					System.exit(0);
 					break;
@@ -71,15 +73,15 @@ public class problem5 {
 
 	public static void menu() {
 		System.out.print("\u001b[2J" + "\u001b[H");
-	    System.out.print("Available Commands:\n");
-	    System.out.print("    i XXX - Insert value XXX into the data structure\n");
-	    System.out.print("    d XXX - Delete value XXX from the data structure\n");
-	    System.out.print("    f XXX - Find value XXX in the data structure\n");
-	    System.out.print("    g XXX - Generate XXX integers in the data structure\n");
-	    System.out.print("    s     - Print statistics of data structure\n");
-	    System.out.print("    l     - Display the data structure as a list\n");
-	    System.out.print("    v     - Visualize the data structure with graphviz\n");
-	    //System.out.print("    D     - Delete the entire data structure\n");
-	    System.out.print("    q     - Quit Problem 5\n");
+		System.out.print("Available Commands:\n");
+		System.out.print("    i XXX - Insert value XXX into the data structure\n");
+		System.out.print("    d XXX - Delete value XXX from the data structure\n");
+		System.out.print("    f XXX - Find value XXX in the data structure\n");
+		System.out.print("    g XXX - Generate XXX integers in the data structure\n");
+		System.out.print("    s     - Print statistics of data structure\n");
+		System.out.print("    l     - Display the data structure as a list\n");
+		System.out.print("    v     - Visualize the data structure with graphviz\n");
+		System.out.print("    D     - Delete the entire data structure\n");
+		System.out.print("    q     - Quit Problem 5\n");
 	}
 }
