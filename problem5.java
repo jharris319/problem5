@@ -16,47 +16,47 @@ public class problem5 {
 			switch(command.charAt(0)) {
 
 				case 'i':
-					menu();
+					//menu();
 					L.insert(flag);
 					break;
 				case 'd':
-					menu();
+					//menu();
 					L.delete(flag);
 					break;
 				case 'f':
-					menu();
+					//menu();
 					node findNode = L.find(flag);
 					if(findNode == null) System.out.println("[Value not found]");
 					else {
 						System.out.print("[Found " + findNode.get_value());
 						if(findNode.get_prev() != null) System.out.print(" / Prev " + findNode.get_prev().get_value());
 						if(findNode.get_next() != null) System.out.print(" / Next " + findNode.get_next().get_value());
-						if(findNode.get_prevRow() != null) System.out.print(" / PrevCol " + findNode.get_prevRow().get_value());
-						if(findNode.get_nextRow() != null) System.out.print(" / NextCol " + findNode.get_nextRow().get_value());
+						if(findNode.get_prevRow() != null) System.out.print(" / PrevRow " + findNode.get_prevRow().get_value());
+						if(findNode.get_nextRow() != null) System.out.print(" / NextRow " + findNode.get_nextRow().get_value());
 						System.out.println("]");
 					}
 					break;
 				case 'g':
-					menu();
+					//menu();
 					L = null;
 					System.gc();
 					L = new list();
 					L.genList(flag);
 					break;
 				case 's':
-					menu();
+					//menu();
 					L.stats();
 					break;
 				case 'l':
-					menu();
+					//menu();
 					System.out.println(L.display());
 					break;
 				case 'v':
-					menu();
+					//menu();
 					G.makeDot(L);
 					break;
 				case 'D':
-					menu();
+					//menu();
 					L = null;
 					System.gc();
 					L = new list();
@@ -66,22 +66,25 @@ public class problem5 {
 					System.out.println("Thanks for flying 100P!");
 					System.exit(0);
 					break;
+                case 'z': // TODO - DELETE THIS! I'M NOT KIDDING!!!!!!!!!!
+                    System.out.println("Debugging");
+                    break;
 			}
 		}
 		
 	}
 
 	public static void menu() {
-		System.out.print("\u001b[2J" + "\u001b[H");
-		System.out.print("Available Commands:\n");
-		System.out.print("    i XXX - Insert value XXX into the data structure\n");
-		System.out.print("    d XXX - Delete value XXX from the data structure\n");
-		System.out.print("    f XXX - Find value XXX in the data structure\n");
-		System.out.print("    g XXX - Generate XXX integers in the data structure\n");
-		System.out.print("    s     - Print statistics of data structure\n");
-		System.out.print("    l     - Display the data structure as a list\n");
-		System.out.print("    v     - Visualize the data structure with graphviz\n");
-		System.out.print("    D     - Delete the entire data structure\n");
-		System.out.print("    q     - Quit Problem 5\n");
+		//System.out.print("\u001b[2J" + "\u001b[H");
+	    System.out.print("Available Commands:\n");
+	    System.out.print("    i XXX - Insert value XXX into the data structure\n");
+	    System.out.print("    d XXX - Delete value XXX from the data structure\n");
+	    System.out.print("    f XXX - Find value XXX in the data structure\n");
+	    System.out.print("    g XXX - Generate XXX integers in the data structure\n");
+	    System.out.print("    s     - Print statistics of data structure\n");
+	    System.out.print("    l     - Display the data structure as a list\n");
+	    System.out.print("    v     - Visualize the data structure with graphviz\n");
+	    System.out.print("    D     - Delete the entire data structure\n");
+	    System.out.print("    q     - Quit Problem 5\n");
 	}
 }
